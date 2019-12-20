@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>
+        ChenStyle -
+            
+    </title>
+    <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+</head>
+
+    <body>
+        <!-- 轮播 -->
+            <nav>
+    <div class="contant">
+        <ul class="routes-wrap">
+            
+                <li class="">
+                    <a href="/">
+                        首页
+                    </a>
+                    <div class="light-line"></div>
+                </li>
+                
+                <li class="">
+                    <a href="/about">
+                        关于
+                    </a>
+                    <div class="light-line"></div>
+                </li>
+                
+                <li class="">
+                    <a href="/contact">
+                        联系
+                    </a>
+                    <div class="light-line"></div>
+                </li>
+                
+        </ul>
+    </div>
+
+</nav>
+                
+    <div>
+    
+        <h3>javascript IIFE使用注意事项</h3>
+    
+</div>
+<div>
+    <!--excerpt-->
+<p>IIFE（ 立即调用函数表达式）是一个在定义时就会立即执行的  JavaScript 函数。</p>
+<p>实现IIFE有多种方法，但是需要获得IIFE的返回值时，每一种实现方法返回的值可能都会不一样。</p>
+<a id="more"></a>
+<blockquote>
+<p>已知IIFE的8种实现方式 </p>
+</blockquote>
+<ol>
+<li><code>(function(){}())</code> </li>
+<li><code>(function(){})()</code></li>
+<li><code>!function(){}()</code></li>
+<li><code>[function(){}()]</code></li>
+<li><code>+function(){}()</code></li>
+<li><code>-function(){}()</code></li>
+<li><code>void function(){}()</code></li>
+<li><code>~function(){}()</code></li>
+</ol>
+<blockquote>
+<p>！注意事项</p>
+</blockquote>
+<ul>
+<li>返回值变更</li>
+</ul>
+<ol>
+<li>转换成boolean值后取反</li>
+<li>转成数组，数组元素为返回值本身</li>
+<li>返回值被转换成数字类型</li>
+<li>同5但是数字类型取反</li>
+<li>始终返回undefined</li>
+<li>返回值先是被转换为数字类型,当值为NaN时，返回-1。不为NaN时值取反并-1。</li>
+</ol>
+
+</div>
+
+    </body>
+    
+
+</html>

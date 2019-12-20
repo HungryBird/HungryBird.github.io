@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>
+        ChenStyle -
+            
+    </title>
+    <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+</head>
+
+    <body>
+        <!-- 轮播 -->
+            <nav>
+    <div class="contant">
+        <ul class="routes-wrap">
+            
+                <li class="">
+                    <a href="/">
+                        首页
+                    </a>
+                    <div class="light-line"></div>
+                </li>
+                
+                <li class="">
+                    <a href="/about">
+                        关于
+                    </a>
+                    <div class="light-line"></div>
+                </li>
+                
+                <li class="">
+                    <a href="/contact">
+                        联系
+                    </a>
+                    <div class="light-line"></div>
+                </li>
+                
+        </ul>
+    </div>
+
+</nav>
+                
+    <div>
+    
+        <h3>hexo使用笔记二：使用i18n</h3>
+    
+</div>
+<div>
+    <!--excerpt-->
+<p>之前在做别的项目一直没有机会使用i18n，趁着自己用hexo开发一个博客这次一定要用上i18n。</p>
+<a id="more"></a>
+<p>我在languages文件夹下添加了zh-CN.yml，将自定义主题下的_config.yml的menu对象里的key都映射成了中文。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Menu:</span><br><span class="line">  Home: 首页</span><br><span class="line">  Archives: 归档</span><br><span class="line">  About: 关于</span><br><span class="line">  Contact: 联系</span><br></pre></td></tr></table></figure>
+
+<p>我将根目录的_config.yml的languages设为zh-CN。</p>
+<p>在导航标签内使用了如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;% for(const key in theme.menu) &#123; %&gt;</span><br><span class="line">    &lt;%- __(&apos;Menu.&apos; + key) %&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
+<p>__()方法会从zh-CH.yml找到传入的key的值并返回value。</p>
+<blockquote>
+<p>！注意：根目录下的_config.yml如果设一个默认值将会引用theme目录下languages文件夹里的default.yml文件。</p>
+</blockquote>
+
+</div>
+
+    </body>
+    
+
+</html>

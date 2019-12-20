@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>
+        ChenStyle -
+            
+    </title>
+    <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+</head>
+
+    <body>
+        <!-- 轮播 -->
+            <nav>
+    <div class="contant">
+        <ul class="routes-wrap">
+            
+                <li class="">
+                    <a href="/">
+                        首页
+                    </a>
+                    <div class="light-line"></div>
+                </li>
+                
+                <li class="">
+                    <a href="/about">
+                        关于
+                    </a>
+                    <div class="light-line"></div>
+                </li>
+                
+                <li class="">
+                    <a href="/contact">
+                        联系
+                    </a>
+                    <div class="light-line"></div>
+                </li>
+                
+        </ul>
+    </div>
+
+</nav>
+                
+    <div>
+    
+        <h3>vue UI库封装的emitter.js文件</h3>
+    
+</div>
+<div>
+    <!--excerpt-->
+<p>element-ui和iview等流行的Vue的UI库都有一个叫做emitter.js的文件。</p>
+<p>emitter文件里有两个方法：</p>
+<p>dispatch是寻找组件名为componentName的父级组件并执行eventName方法。</p>
+<p>broacast是寻找组件名为componentName的子组件并执行eventName方法。</p>
+<a id="more"></a>
+
+<p>源码如下(element-ui2.13.0):</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">broadcast</span>(<span class="params">componentName, eventName, params</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.$children.forEach(<span class="function"><span class="params">child</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> name = child.$options.componentName;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (name === componentName) &#123;</span><br><span class="line">            child.$emit.apply(child, [eventName].concat(params));</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            broadcast.apply(child, [componentName, eventName].concat([params]));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    methods: &#123;</span><br><span class="line">        dispatch(componentName, eventName, params) &#123;</span><br><span class="line">            <span class="keyword">var</span> parent = <span class="keyword">this</span>.$parent || <span class="keyword">this</span>.$root;</span><br><span class="line">            <span class="keyword">var</span> name = parent.$options.componentName;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> (parent &amp;&amp; (!name || name !== componentName)) &#123;</span><br><span class="line">                parent = parent.$parent;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (parent) &#123;</span><br><span class="line">                    name = parent.$options.componentName;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (parent) &#123;</span><br><span class="line">                parent.$emit.apply(parent, [eventName].concat(params));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        broadcast(componentName, eventName, params) &#123;</span><br><span class="line">            broadcast.call(<span class="keyword">this</span>, componentName, eventName, params);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>当我直接复制粘贴改源码使用时，发现根本找不到要找的组件。</p>
+<p>经过排查</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">parent.$options.componentName   <span class="comment">// 永远返回undefined</span></span><br></pre></td></tr></table></figure>
+<p>Vue获取组件名的方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.$options.name</span><br></pre></td></tr></table></figure>
+<p>将</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">parent.$options.componentName</span><br></pre></td></tr></table></figure>
+<p>改为</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">parent.$options.name</span><br></pre></td></tr></table></figure>
+<p>便可正确获得组件</p>
+
+</div>
+
+    </body>
+    
+
+</html>

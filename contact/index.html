@@ -30,7 +30,7 @@
                     <div class="light-line"></div>
                 </li>
                 
-                <li class="">
+                <li class="active">
                     <a href="/contact">
                         联系
                     </a>
@@ -44,22 +44,48 @@
                 
     <div>
     
-        <h3>hexo使用笔记一：自定义路由页面</h3>
+        
     
 </div>
 <div>
-    <!--excerpt-->
-<p>hexo默认的路由只有’/‘和’/archives’，但是我想添加一个about路由该怎么办呢？</p>
-<p>于是利用搜索引擎找到了添加路由的方法。</p>
-<a id="more"></a>
-<p>首先在命令行输入hexo n page “about”指令。</p>
-<p>成功之后可以在根目录的source下发现多了一个about文件夹，打开之后是index.md这个文件。</p>
-<p>于是我在导航栏新增加了/about这个路径之后发现浏览器报错。</p>
-<p><code>each is not a function</code></p>
-<p>原来是我在index.ejs里用page.post.each方法渲染文章列表。</p>
-<p>跳转到about路径之后只有一个独立的文章变量。</p>
-<p>因此添加了if(page.posts &amp;&amp; page.posts.length)判断语句解决了不同路由引发的报错。</p>
+    <ul class="contact">
+    <li>
+        <a>
+            <image src="/contact/index/email.png" alt="邮箱">
+            <div>邮箱</div>
+        </image></a>
+    </li>
+    <li>
+        <a herf="https://github.com/hungryBird">
+            <image src="/contact/index/github.png" alt="github">
+            <div>github</div>
+        </image></a>
+    </li>
+    <li>
+        <a herf="https://www.zhihu.com/people/he-chen-23">
+            <image src="/contact/index/zhihu.png" alt="知乎">
+            <div>知乎</div>
+        </image></a>
+    </li>
+    <li>
+        <a herf="https://weibo.com/u/5693785217">
+            <image src="/contact/index/weibo.png" alt="微博">
+            <div>微博</div>
+        </image></a>
+    </li>
+    <li>
+        <a herf="https://github.com/HungryBird/HungryBird.github.io">
+            <image src="/contact/index/blogger.png" alt="博客">
+            <div>博客</div>
+        </image></a>
+    </li>
+</ul>
+<div id="url">1111<div>
 
+<script>
+
+</script>
+</div></div>
 </div>
 
     </body>

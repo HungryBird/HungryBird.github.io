@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>
+        ChenStyle -
+            
+    </title>
+    <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+</head>
+
+    <body>
+        <!-- 轮播 -->
+            <nav>
+    <div class="contant">
+        <ul class="routes-wrap">
+            
+                <li class="">
+                    <a href="/">
+                        首页
+                    </a>
+                    <div class="light-line"></div>
+                </li>
+                
+                <li class="">
+                    <a href="/about">
+                        关于
+                    </a>
+                    <div class="light-line"></div>
+                </li>
+                
+                <li class="">
+                    <a href="/contact">
+                        联系
+                    </a>
+                    <div class="light-line"></div>
+                </li>
+                
+        </ul>
+    </div>
+
+</nav>
+                
+    <div>
+    
+        <h3>Vue自定义指令directive使用注意事项</h3>
+    
+</div>
+<div>
+    <!--excerpt-->
+<p>当我们需要对原生标签添加底层操作的方法，或是不方便修改其他人封装的组建时，自定义指令给我们更大的开发自由度。</p>
+<p>但是使用自定义指令时有几个要特别注意的地方。</p>
+<a id="more"></a>
+
+<blockquote>
+<p>注意事项1：</p>
+</blockquote>
+<p>directive命名时不支持驼峰法，用驼峰法命名的directive无效。</p>
+<blockquote>
+<p>注意事项2：</p>
+</blockquote>
+<p>input标签监听change事件应该用’input’代替’change’</p>
+<p>具体代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;input v-only-number&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    Vue.directive(&apos;only-number&apos;, &#123;</span><br><span class="line">        inserted: function(el) &#123;</span><br><span class="line">            el.addEventListener(&apos;input&apos;, function() &#123;</span><br><span class="line">                // todo</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意事项3：<br>自定义指令内无法直接获得vue实例，需要通过binding.value传递this。</p>
+</blockquote>
+<p>具体代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;input v-only-number=&quot;&#123;set: this, name: &apos;bar&apos;&#125;&quot; v-model=&quot;bar&quot;&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    export default: &#123;</span><br><span class="line">        data() &#123;</span><br><span class="line">            return &#123;</span><br><span class="line">                bar: &apos;&apos;,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        directives(&apos;only-number&apos;, &#123;</span><br><span class="line">            inserted: function(el, binding) &#123;</span><br><span class="line">                el.addEventListener(&apos;input&apos;, function() &#123;</span><br><span class="line">                    const self = binding.value.set;</span><br><span class="line">                    const name = binding.value.name;</span><br><span class="line">                    self[name] = el.value;</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+</div>
+
+    </body>
+    
+
+</html>

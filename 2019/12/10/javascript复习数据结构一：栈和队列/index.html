@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>
+        ChenStyle -
+            
+    </title>
+    <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+</head>
+
+    <body>
+        <!-- 轮播 -->
+            <nav>
+    <div class="contant">
+        <ul class="routes-wrap">
+            
+                <li class="">
+                    <a href="/">
+                        首页
+                    </a>
+                    <div class="light-line"></div>
+                </li>
+                
+                <li class="">
+                    <a href="/about">
+                        关于
+                    </a>
+                    <div class="light-line"></div>
+                </li>
+                
+                <li class="">
+                    <a href="/contact">
+                        联系
+                    </a>
+                    <div class="light-line"></div>
+                </li>
+                
+        </ul>
+    </div>
+
+</nav>
+                
+    <div>
+    
+        <h3>javascript复习数据结构一：栈和队列</h3>
+    
+</div>
+<div>
+    <!--excerpt-->
+<p>js没有栈和队列数据结构，用Array可以很轻松的模拟出来。<br>在动手实现的情况下还能复习数据结构。</p>
+<a id="more"></a>
+<blockquote>
+<p>栈：栈就是一个薯片盒，每次拿薯片时只能从最上面的一块拿起。往里放薯片时最先放进去的只能最后拿出来。<br>栈待添加元素和待删除元素都在栈顶，另一端则是栈底。</p>
+</blockquote>
+<p>实现这个数据结构时将提供以下几种方法：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>push(item)</td>
+<td>进栈</td>
+</tr>
+<tr>
+<td>pop()</td>
+<td>出栈</td>
+</tr>
+<tr>
+<td>isEmpty()</td>
+<td>判空</td>
+</tr>
+<tr>
+<td>isMax()</td>
+<td>判满</td>
+</tr>
+<tr>
+<td>peek()</td>
+<td>返回栈顶</td>
+</tr>
+<tr>
+<td>clear()</td>
+<td>清除栈</td>
+</tr>
+<tr>
+<td>getSize()</td>
+<td>获得栈的长度</td>
+</tr>
+<tr>
+<td>print()</td>
+<td>打印栈的元素</td>
+</tr>
+</tbody></table>
+<p><strong>创建栈</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Stack</span>(<span class="params">max</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// js内数组的最大长度为Math.pow(2, 32) - 1</span></span><br><span class="line">    <span class="keyword">var</span> max = max || <span class="built_in">Math</span>.pow(<span class="number">2</span>, <span class="number">32</span>) - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">var</span> items = []; <span class="comment">// 保存栈</span></span><br><span class="line">    <span class="keyword">this</span>.push = <span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (items.length &gt;= max) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">RangeError</span>(<span class="string">'栈已满'</span>);</span><br><span class="line">        items.push(item)</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">this</span>.pop = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (items.length === <span class="number">0</span>) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">RangeError</span>(<span class="string">'栈为空'</span>);</span><br><span class="line">        items.pop();</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">this</span>.isEmpty = <span class="function"><span class="keyword">function</span> <span class="title">isEmpty</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> items.length === <span class="number">0</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">this</span>.isMax = <span class="function"><span class="keyword">function</span> <span class="title">isMax</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> items.length === max;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">this</span>.peek = <span class="function"><span class="keyword">function</span> <span class="title">peek</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> items[items.length - <span class="number">1</span>];</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">this</span>.clear = <span class="function"><span class="keyword">function</span> <span class="title">clear</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        items = []</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">this</span>.getSize = <span class="function"><span class="keyword">function</span> <span class="title">getSize</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> items.length;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">this</span>.print = <span class="function"><span class="keyword">function</span> <span class="title">print</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(items.toString())</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>队列: 队列就是一条管道，先进先出，后进后出。添加的元素都在队列尾部，要移除的元素都在队列顶部。</p>
+</blockquote>
+<p>实现这个数据结构时将提供以下几种方法：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>enqueue(item)</td>
+<td>队列尾部添加一个或多个元素</td>
+</tr>
+<tr>
+<td>dequeue()</td>
+<td>队列头部删除一个元素，并返回被删除的元素</td>
+</tr>
+<tr>
+<td>isEmpty()</td>
+<td>判空</td>
+</tr>
+<tr>
+<td>isMax()</td>
+<td>判满</td>
+</tr>
+<tr>
+<td>font()</td>
+<td>返回队列顶部</td>
+</tr>
+<tr>
+<td>getSize()</td>
+<td>获得队列的长度</td>
+</tr>
+<tr>
+<td>print()</td>
+<td>打印队列的元素</td>
+</tr>
+</tbody></table>
+<p><strong>创建队列</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Queue</span>(<span class="params">max</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> items = [];</span><br><span class="line">    <span class="keyword">var</span> max = max || <span class="built_in">Math</span>.pow(<span class="number">2</span>, <span class="number">32</span>) - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">this</span>.enqueue = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> arr = <span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>);</span><br><span class="line">        arr.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">            items.push(item);</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">this</span>.dequeue = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (items.length === <span class="number">0</span>) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">RangeError</span>(<span class="string">'队列为空'</span>);</span><br><span class="line">        <span class="keyword">return</span> items.shift();</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">this</span>.isEmpty = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> items.length === <span class="number">0</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">this</span>.isMax = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> items.length === max;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">this</span>.font = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> items[<span class="number">0</span>]</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">this</span>.getSize = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> items.length;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">this</span>.print = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(items.toString())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</div>
+
+    </body>
+    
+
+</html>

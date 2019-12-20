@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>
+        ChenStyle -
+            
+    </title>
+    <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+</head>
+
+    <body>
+        <!-- 轮播 -->
+            <nav>
+    <div class="contant">
+        <ul class="routes-wrap">
+            
+                <li class="">
+                    <a href="/">
+                        首页
+                    </a>
+                    <div class="light-line"></div>
+                </li>
+                
+                <li class="">
+                    <a href="/about">
+                        关于
+                    </a>
+                    <div class="light-line"></div>
+                </li>
+                
+                <li class="">
+                    <a href="/contact">
+                        联系
+                    </a>
+                    <div class="light-line"></div>
+                </li>
+                
+        </ul>
+    </div>
+
+</nav>
+                
+    <div>
+    
+        <h3>javascript复习数据结构二：链表</h3>
+    
+</div>
+<div>
+    <!--excerpt-->
+<p>已知队列和栈的出口都是单向的，如果要移除中间元素就要移除一半的元素。<br>因此链表的出现让存储有序数据变得更加灵活。</p>
+<a id="more"></a>
+<blockquote>
+<p>单向链表的结构示意图</p>
+</blockquote>
+<p><kbd>head</kbd> =&gt; <kbd>data|next</kbd> =&gt; <kbd>data|next</kbd> =&gt; null</p>
+<p>链表包括头部元素head和链表元素node。</p>
+<p>头部元素永远指向第一个有效的链表元素，不是必须存在的元素。<br>链表元素包括data存储数据部分和next指向下一个链表元素的指针。最后一个链表元素的指针指向null。</p>
+<p>实现这个数据结构时将提供以下几种方法：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>append(data)</td>
+<td>链表尾部添加一个新元素</td>
+</tr>
+<tr>
+<td>insert(index, data)</td>
+<td>链表插入指定位置插入新元素</td>
+</tr>
+<tr>
+<td>remove(data)</td>
+<td>从链表中移除指定元素</td>
+</tr>
+<tr>
+<td>removeAt(index)</td>
+<td>根据索引值移除元素</td>
+</tr>
+<tr>
+<td>indexOf(data)</td>
+<td>返回传参元素所在索引值不存在返回-1</td>
+</tr>
+<tr>
+<td>isEmpty()</td>
+<td>判断链表是否为空</td>
+</tr>
+<tr>
+<td>getSize()</td>
+<td>返回链表的长度</td>
+</tr>
+<tr>
+<td>print()</td>
+<td>打印链表的元素</td>
+</tr>
+</tbody></table>
+<p><strong>创建链表</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">LinkedList</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 初始化头部指针</span></span><br><span class="line">    <span class="keyword">var</span> head = <span class="literal">null</span>;</span><br><span class="line">    <span class="comment">// 链表长度默认值为0</span></span><br><span class="line">    <span class="keyword">var</span> length = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 声明Node类</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">Node</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.data = data;</span><br><span class="line">        <span class="keyword">this</span>.next = <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">this</span>.append = <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> node = <span class="keyword">new</span> Node(data)</span><br><span class="line">        , current;</span><br><span class="line">        <span class="keyword">if</span>(!head) &#123;</span><br><span class="line">            head = node;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 找到第一个node</span></span><br><span class="line">            current = head;</span><br><span class="line">            <span class="comment">// 找到最后一个node</span></span><br><span class="line">            <span class="keyword">while</span>(current.next) &#123;</span><br><span class="line">                current = current.next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 最后一个node的next指向新添加的node</span></span><br><span class="line">            current.next = node;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 更新链表长度</span></span><br><span class="line">        length++;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">this</span>.insert = <span class="function"><span class="keyword">function</span>(<span class="params">index, data</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 检查是否越界</span></span><br><span class="line">        <span class="keyword">if</span> (index &lt; <span class="number">0</span> || index &gt; length) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">RangeError</span>(<span class="string">'插入位置错误'</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">var</span> node = <span class="keyword">new</span> Node(data)</span><br><span class="line">        , current = head    <span class="comment">// 从第一个元素开始</span></span><br><span class="line">        , previous</span><br><span class="line">        , _index = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (!head) &#123;</span><br><span class="line">            head = node;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(index === <span class="number">0</span>)&#123;</span><br><span class="line">            node.next = head;</span><br><span class="line">            head = node;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">while</span>(_index !== index) &#123;</span><br><span class="line">                previous = current;</span><br><span class="line">                current = current.next;</span><br><span class="line">                _index++;</span><br><span class="line">            &#125;</span><br><span class="line">            previous.next = node;</span><br><span class="line">            node.next = current;</span><br><span class="line">        &#125;</span><br><span class="line">        length++;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">this</span>.removeAt = <span class="function"><span class="keyword">function</span>(<span class="params">index</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (index &gt; length - <span class="number">1</span> || index &lt;= <span class="number">-1</span>) <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">var</span> current = head</span><br><span class="line">        , previous</span><br><span class="line">        , _index;</span><br><span class="line">        <span class="keyword">if</span> (index === <span class="number">0</span>) &#123;</span><br><span class="line">            head = current.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">while</span>(_index &lt; index) &#123;</span><br><span class="line">                previous = current;</span><br><span class="line">                current = current.next;</span><br><span class="line">                _index++;</span><br><span class="line">            &#125;</span><br><span class="line">            previous.next = current.next;</span><br><span class="line">        &#125;</span><br><span class="line">        length--;</span><br><span class="line">        <span class="keyword">return</span> current.data;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">this</span>.indexOf = <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!head) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">var</span> current = head</span><br><span class="line">        , _index = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(current &amp;&amp; current.data !== data) &#123;</span><br><span class="line">            current = current.next;</span><br><span class="line">            _index++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> current ? _index : <span class="number">-1</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">this</span>.remove = <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> _index = <span class="keyword">this</span>.indexOf(data);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.removeAt(_index);</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">this</span>.isEmpty = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> !head;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">this</span>.getSize = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> _index = <span class="number">0</span></span><br><span class="line">        , current = head;</span><br><span class="line">        <span class="keyword">if</span> (!head) <span class="keyword">return</span> _index;</span><br><span class="line">        <span class="keyword">while</span>(current) &#123;</span><br><span class="line">            current.next = current;</span><br><span class="line">            _index++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> _index;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">this</span>.print = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(head));</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>双向链表：比单向链表的node多了一个previous指向前一个node</p>
+</blockquote>
+<blockquote>
+<p>循环单向链表：单向链表最后一个node的next指向head</p>
+</blockquote>
+<blockquote>
+<p>循环双向链表：双向链表最后一个node的next指向head</p>
+</blockquote>
+
+</div>
+
+    </body>
+    
+
+</html>
