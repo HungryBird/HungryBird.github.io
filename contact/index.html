@@ -49,41 +49,48 @@
 </div>
 <div>
     <ul class="contact">
-    <li>
+    <li data-url="381548325@qq.com">
         <a>
             <image src="/contact/index/email.png" alt="邮箱">
             <div>邮箱</div>
         </image></a>
     </li>
-    <li>
-        <a herf="https://github.com/hungryBird">
+    <li data-url="https://github.com/hungryBird">
+        <a href="https://github.com/hungryBird" target="_blank" rel="noopener">
             <image src="/contact/index/github.png" alt="github">
             <div>github</div>
         </image></a>
     </li>
-    <li>
-        <a herf="https://www.zhihu.com/people/he-chen-23">
+    <li data-url="https://www.zhihu.com/people/he-chen-23">
+        <a href="https://www.zhihu.com/people/he-chen-23" target="_blank" rel="noopener">
             <image src="/contact/index/zhihu.png" alt="知乎">
             <div>知乎</div>
         </image></a>
     </li>
-    <li>
-        <a herf="https://weibo.com/u/5693785217">
+    <li data-url="https://weibo.com/u/5693785217">
+        <a href="https://weibo.com/u/5693785217" target="_blank" rel="noopener">
             <image src="/contact/index/weibo.png" alt="微博">
             <div>微博</div>
         </image></a>
     </li>
-    <li>
-        <a herf="https://github.com/HungryBird/HungryBird.github.io">
+    <li data-url="https://hungrybird.github.io/">
+        <a href="https://hungrybird.github.io/" target="_blank" rel="noopener">
             <image src="/contact/index/blogger.png" alt="博客">
             <div>博客</div>
         </image></a>
     </li>
 </ul>
-<div id="url">1111<div>
+<div id="URL-wrapper">
+<div>
 
 <script>
-
+    const URLDom = document.querySelector('#URL-wrapper');
+    const uLis = document.querySelector('.contact').querySelectorAll('li');
+    for (const li of uLis) {
+        li.addEventListener('mouseenter', (e) => {
+            URLDom.innerText = e.target.dataset.url;
+        })
+    }
 </script>
 </div></div>
 </div>

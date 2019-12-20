@@ -166,7 +166,8 @@ table td {
 
 .contact {
   width: 600px;
-  margin: 60px auto;
+  margin: 200px auto;
+  margin-bottom: 80px;
   display: flex;
   justify-content: space-around; }
   .contact li {
@@ -174,5 +175,13 @@ table td {
     height: 60px;
     text-align: center;
     cursor: pointer; }
+    .contact li a {
+      display: inline-block; }
     .contact li img {
       width: 100%; }
+
+#URL-wrapper {
+  width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff; }
