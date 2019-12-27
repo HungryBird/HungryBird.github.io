@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>
+        ChenStyle -
+            
+    </title>
+    <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+</head>
+
+    <body>
+        <!-- 轮播 -->
+            <nav>
+    <div class="contant">
+        <ul class="routes-wrap">
+            
+                <li class="">
+                    <a href="/">
+                        首页
+                    </a>
+                    <div class="light-line"></div>
+                </li>
+                
+                <li class="">
+                    <a href="/about">
+                        关于
+                    </a>
+                    <div class="light-line"></div>
+                </li>
+                
+                <li class="">
+                    <a href="/contact">
+                        联系
+                    </a>
+                    <div class="light-line"></div>
+                </li>
+                
+        </ul>
+    </div>
+
+</nav>
+                
+    <div>
+    
+        <h3>闭包</h3>
+    
+</div>
+<div>
+    <!--excerpt-->
+<p>闭包，MDN的定义是“引用自由变量的函数”。</p>
+<p>自由变量：不是函数的形参，不是函数局部变量的变量。</p>
+<p>所以在《JavaScript权威指南》中就讲到：从技术的角度讲，所有的JavaScript函数都是闭包。</p>
+<a id="more"></a>
+<blockquote>
+<p>闭包面试题必考</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> data = [];</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">  data[i] = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(i);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">data[<span class="number">0</span>]();</span><br><span class="line">data[<span class="number">1</span>]();</span><br><span class="line">data[<span class="number">2</span>]();</span><br></pre></td></tr></table></figure>
+<p>一般面试官会这样问：</p>
+<p>1.打印的结果是什么。</p>
+<p>答：都输出</p>
+<p>2.怎样打印出0，1，2？</p>
+<p>答：用let声明i或者改成闭包</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> data = [];</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">  data[i] = (<span class="function"><span class="keyword">function</span> (<span class="params">i</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(i);</span><br><span class="line">        &#125;</span><br><span class="line">  &#125;)(i);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">data[<span class="number">0</span>]();</span><br><span class="line">data[<span class="number">1</span>]();</span><br><span class="line">data[<span class="number">2</span>]();</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>为什么闭包可以得到期望的结果？</p>
+</blockquote>
+<p>原理解析如下：</p>
+<p>执行data[0]的时候</p>
+<ol>
+<li>进入全局代码，创建全局执行上下文，全局执行上下文压入执行上下文栈。</li>
+<li>进入匿名函数，创建匿名函数执行上下文，匿名函数执行上下文被压入执行上下文栈。</li>
+<li>匿名函数执行后弹出执行上下文栈。</li>
+<li>进入data[0]，创建data[0]执行上下文，data[0]执行上下文被压入执行上下文栈。</li>
+<li>执行data[0]函数时，data[0]函数通过作用域链找到匿名函数作用域链，并在匿名函数作用域的AO对象中找到key为i的值。</li>
+</ol>
+<p>参考：<a href="https://github.com/mqyqingfeng/Blog/issues/9" target="_blank" rel="noopener">JavaScript深入之闭包</a></p>
+
+</div>
+
+    </body>
+    
+
+</html>
