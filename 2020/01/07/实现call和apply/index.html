@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>
+        ChenStyle -
+            
+    </title>
+    <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+</head>
+
+    <body>
+        <!-- 轮播 -->
+            <nav>
+    <div class="contant">
+        <ul class="routes-wrap">
+            
+                <li class="">
+                    <a href="/">
+                        首页
+                    </a>
+                    <div class="light-line"></div>
+                </li>
+                
+                <li class="">
+                    <a href="/about">
+                        关于
+                    </a>
+                    <div class="light-line"></div>
+                </li>
+                
+                <li class="">
+                    <a href="/contact">
+                        联系
+                    </a>
+                    <div class="light-line"></div>
+                </li>
+                
+        </ul>
+    </div>
+
+</nav>
+                
+    <div>
+    
+        <h3>模拟实现call和apply</h3>
+    
+</div>
+<div>
+    <!--excerpt-->
+
+<p>call和apply都是经常使用的方法。</p>
+<p>为了加深自己的理解，用js代码实现call和apply方法。</p>
+<a id="more"></a>
+
+<p>call和apply唯一的不同就是传参类型不同，call传参的是一个参数列表。apply则要求是一个数组对象。</p>
+<p>这里实现call之前先看看call是怎么用的。</p>
+<pre>
+var name = 'window'
+var obj = {name: 'obj'}
+function foo(arg1, arg2) {
+    console.log(arg1)
+    console.log(arg2)
+    console.log(this.name)
+}
+foo()   // 'window'
+foo.call(obj, '1', '2')   // 1 2 'obj'
+</pre>
+
+<blockquote>
+<p>call() 方法使用一个指定的 this 值和单独给出的一个或多个参数来调用一个函数。</p>
+</blockquote>
+<p>call的特点，改变调用函数this指向，立即执行。</p>
+<p>要实现让this指向obj这个对象最简单的方法就是把foo变成obj的属性，即：</p>
+<pre>
+var obj = {
+    name: 'obj',
+    foo(arg1, arg2) {
+        console.log(arg1)
+        console.log(arg2)
+        console.log(this.name)
+    }
+}
+obj.foo(1,2)   // 1 2 'obj'
+</pre>
+
+<ol>
+<li>先给对象添加属性，调用之后删除该属性<pre>
+Function.prototype.call1 = function(context) {
+ // 为了避免覆盖context上已存在的属性，用Symbol作为属性名
+ const fn = Symbol('fn');
+ // foo.call() this === foo
+ context[fn] = this;
+ // 相当于执行obj.foo()
+ context[fn]();
+ delete context[fn]
+}
+
+</pre></li>
+</ol>
+<p>foo.call1(obj)  // ‘obj’<br><br>2. 将参数传入foo内</p>
+<pre>
+Function.prototype.call1 = function() {
+    // 第一个参数是传入的对象
+    const context = arguments[0];
+    const arr = [];
+    for(let i = 1; i < arr.length; i++) {
+        arr.push(arguments[i]);
+    }
+
+    const fn = Symbol('fn');
+    context[fn] = this;
+    /** eval(string)
+    * string为必须
+    */
+    eval(`context[fn](${arr})`);
+    delete context[fn]
+}
+foo.call1(obj, 1, 2)  // 1 2 'obj'
+</pre>
+
+<ol start="3">
+<li><p>当function有返回值时</p>
+<pre>
+function foo() {
+ return {
+     name: this.name
+ };
+}
+var f = foo.call(obj);
+console.log(f)  // {name: 'obj'}
+</pre>
+<p>因此需要给一个返回值</p>
+<pre>
+Function.prototype.call1 = function() {
+ const context = arguments[0];
+ const arr = [];
+ for(let i = 1; i < arr.length; i++) {
+     arr.push(arguments[i]);
+ }
+
+ const fn = Symbol('fn');
+ context[fn] = this;
+ let result = `context[fn](...arr)
+ delete context[fn]
+ return result;
+}
+function bar() {
+ console.log(this.name);
+ return 1;
+}
+const b = bar.call1(obj)  // 'obj'
+console.log(b)  // 1
+</pre>
+</li>
+<li><p>当传入一个空值时</p>
+<pre>
+foo.call(null)  // 'window'
+</pre>
+<p>所以要添加一个空的判断</p>
+<pre>
+Function.prototype.call1 = function() {
+ const context = arguments[0] ? arguments[0] : window;
+ const arr = [];
+ for(let i = 1; i < arr.length; i++) {
+     arr.push(arguments[i]);
+ }
+
+ const fn = Symbol('fn');
+ context[fn] = this;
+ let result = `context[fn](...arr)
+ delete context[fn]
+ return result;
+}
+function baz() {
+ console.log(this.name);
+}
+const z = baz.call1()  // 'window'
+</pre>
+
+</li>
+</ol>
+<blockquote>
+<p>模拟apply的实现</p>
+</blockquote>
+<pre>
+Function.prototype.call1 = function() {
+    const context = arguments[0] ? arguments[0] : window;
+    const arr = arguments[1] ? arguments[1] : [];
+    const fn = Symbol('fn');
+    context[fn] = this;
+    let result = `context[fn](...arr)
+    delete context[fn]
+    return result;
+}
+</pre>
+</div>
+
+    </body>
+    
+
+</html>
